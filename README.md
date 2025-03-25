@@ -1,4 +1,4 @@
-# HexGridSystem-
+# HexGridSystem
 
 #### [EN](README.EN.md)
 
