@@ -1,5 +1,7 @@
 # HexGridSystem-
 
+#### [EN](README.EN.md)
+
 #### [中文](README.md)
 
 This project is a hexagonal grid system that can be used to create hexagonal maps in the Unity game engine. It provides a set of C# scripts, including HexCell, HexCoordinates, HexGrid, HexGridHighlight, HexMesh, and HexMetrics, which help developers quickly build hexagonal grid maps.

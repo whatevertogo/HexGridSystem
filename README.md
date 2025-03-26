@@ -2,6 +2,8 @@
 
 #### [EN](README.EN.md)
 
+![image](HexSystem/images/image.png)
+
 这个项目是一个六边形网格系统，可用于在Unity游戏引擎中创建六边形地图。它提供了一组C#脚本，包括HexCell、HexCoordinates、HexGrid、HexGridHighlight、HexMesh和HexMetrics等，可以帮助开发者快速构建六边形网格地图。
 提示：这里是3d的六边形网格系统，包含了立方体坐标系的实现，支持动态生成六边形网格的网格模型，并提供了高亮和选择功能。
 如果你需要变成2d的请自行修改，或者使用2d的六边形网格系统。
