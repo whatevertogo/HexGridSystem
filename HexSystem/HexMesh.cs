@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
+/// <summary>
+/// 
+/// </summary>
 public class HexMesh : MonoBehaviour
 {
     Mesh hexMesh;//存储生成的网格数据
@@ -35,7 +38,7 @@ public class HexMesh : MonoBehaviour
     }
 
     /// <summary>
-    /// 单个六边形单元格的三角化方法
+    /// 对于Cell单个六边形单元格的三角化方法
     /// </summary>
     /// <param name="cell"></param>
     void Triangulate(HexCell cell)

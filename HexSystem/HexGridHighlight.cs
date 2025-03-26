@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -18,19 +16,19 @@ public class HexGridHighlight : MonoBehaviour
         //Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         //Vector3Int position = hexTilemap.WorldToCell(mousePosition);
         Vector3 mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.nearClipPlane));
-        //mousePosition.y -= hexTilemap.cellSize.y; // ¼ÙÉèhexTilemap.tileAnchor.yÊÇ0.5£¬cellSize.yÊÇÍßÆ¬µÄ¸ß¶È
+        //mousePosition.y -= hexTilemap.cellSize.y; // ï¿½ï¿½ï¿½ï¿½hexTilemap.tileAnchor.yï¿½ï¿½0.5ï¿½ï¿½cellSize.yï¿½ï¿½ï¿½ï¿½Æ¬ï¿½Ä¸ß¶ï¿½
         Vector3Int position = hexTilemap.WorldToCell(mousePosition);
         position.x += offset;
 
         if (position != lastHoverPosition)  
         {
-            // Çå³ýÖ®Ç°µÄ¸ßÁÁ
+            // ï¿½ï¿½ï¿½Ö®Ç°ï¿½Ä¸ï¿½ï¿½ï¿½
             if (lastHoverPosition != Vector3Int.zero)
             {
                 hexTilemap.SetTile(lastHoverPosition, normalTile);
             }
 
-            // ÉèÖÃÐÂµÄ¸ßÁÁ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ¸ï¿½ï¿½ï¿½
             if (hexTilemap.HasTile(position))
             {
                 hexTilemap.SetTile(position, highlightTile);

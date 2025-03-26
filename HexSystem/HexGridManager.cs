@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using CDTU.Utils;
 
-public class HexGrid : MonoBehaviour
+public class HexGridManager : Singleton<HexGridManager>
 {
+
     [Header("网格设置")]
     [SerializeField] private int width = 6;
     [SerializeField] private int height = 6;
@@ -14,10 +16,16 @@ public class HexGrid : MonoBehaviour
     private Dictionary<HexCoordinates, HexCell> cellLookup = new Dictionary<HexCoordinates, HexCell>();
 
     [Header("可视化设置")]
+    [Tooltip("cell之间的间距")]
     [SerializeField] private float cellSpacing = 1.0f;
 
-    // 添加事件支持
+    /// <summary>
+    /// Cell创造触发事件
+    /// </summary>
     public event EventHandler<HexCell> OnCellCreated;
+    /// <summary>
+    /// cell被选择触发事件
+    /// </summary>
     public event EventHandler<HexCell> OnCellSelected;
 
     // 公开属性
@@ -25,8 +33,9 @@ public class HexGrid : MonoBehaviour
     public int Height => height;
     public int CellCount => cells?.Length ?? 0;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         InitializeGrid();
     }
 
@@ -56,7 +65,7 @@ public class HexGrid : MonoBehaviour
         {
             foreach (HexCell cell in cells)
             {
-                if (cell != null) DestroyImmediate(cell.gameObject);
+                if (cell != null) Destroy(cell.gameObject);//TODO-可以通过协程增加逐步消除的效果更美观
             }
         }
 
@@ -81,7 +90,7 @@ public class HexGrid : MonoBehaviour
         cellLookup[cell.coordinates] = cell;
 
         // 触发创建事件
-        OnCellCreated?.Invoke(this,cell);
+        OnCellCreated?.Invoke(this, cell);
     }
 
     /// <summary>
@@ -119,7 +128,7 @@ public class HexGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// 通过六边形坐标获取单元格
+    /// 通过六边形坐标结构体获取单元格
     /// </summary>
     public HexCell GetCellByCoordinates(HexCoordinates coordinates)
     {
@@ -136,7 +145,7 @@ public class HexGrid : MonoBehaviour
     {
         if (cell != null)
         {
-            OnCellSelected?.Invoke(this,cell);
+            OnCellSelected?.Invoke(this, cell);
         }
     }
 
