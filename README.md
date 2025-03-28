@@ -12,7 +12,7 @@
 - **HexGridHighlight**: 提供网格单元的高亮和选择功能
 - **HexMesh**: 动态生成六边形网格的网格模型，支持定制外观
 - **HexMetrics**: 定义六边形几何参数和常量，确保网格一致性
-- **HexGridManager：管理HexGridSystem
+- **HexGridManager**：管理HexGridSystem
 
 ## 技术栈
 
