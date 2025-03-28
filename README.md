@@ -12,6 +12,7 @@
 - **HexGridHighlight**: 提供网格单元的高亮和选择功能
 - **HexMesh**: 动态生成六边形网格的网格模型，支持定制外观
 - **HexMetrics**: 定义六边形几何参数和常量，确保网格一致性
+- **HexGridManager：管理HexGridSystem
 
 ## 技术栈
 
@@ -22,7 +23,7 @@
 
 1. 将HexSystem文件夹导入到Unity项目中
 2. 在场景中创建一个空游戏对象，添加HexGrid组件
-3. 在HexGridmanager里面设置配置网格大小、单元格预制体等参数
+3. 创造一个空对象添加HexGridManager在HexGridmanager里面设置配置网格大小、单元格预制体等参数
 4. 运行场景即可查看和交互六边形网格
 
 ## 许可证
