@@ -9,7 +9,7 @@ public static class HexMetrics
     public const float innerRadius = outerRadius * 0.866025404f;//根号3除以2的近似值，计算机图形学的真好，也就是cos30°
 
     /// <summary>
-    /// 应该是学过图形学会懂吧，我不懂啊
+    /// 应该是学过图形学会懂吧
     /// </summary>
     /// <value></value>
     public static Vector3[] corners = {
