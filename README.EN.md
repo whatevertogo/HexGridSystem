@@ -1,85 +1,99 @@
 # HexGridSystem
 
-#### [EN](README.EN.md)
+#### [中文](README.md)
 
-![image](HexSystem/images/image.png)
+A 3D hexagonal grid system for Unity, providing comprehensive functionality for creating, managing, and interacting with hexagonal maps.
 
-这个项目是一个六边形网格系统，可用于在Unity游戏引擎中创建六边形地图。它提供了一组C#脚本，用于快速构建和管理六边形网格地图。
+## Overview
 
-## 主要功能
+HexGridSystem is a modular hexagonal grid system designed for Unity games, offering a flexible and powerful mapping solution. Features include:
 
-- **HexCell**: 定义六边形网格单元的基本属性和行为
-- **HexCoordinates**: 实现立方体坐标系统，便于六边形网格的定位和计算
-- **HexGrid**: 管理六边形网格的创建、布局和更新
-- **HexGridHighlight**: 提供网格单元的高亮和选择功能
-- **HexMesh**: 动态生成六边形网格的网格模型，支持定制外观
-- **HexMetrics**: 定义六边形几何参数和常量，确保网格一致性
+- Dynamic 3D hexagonal grid generation and management
+- Efficient cube coordinate system
+- Complete terrain system
+- Grid cell highlighting and selection
+- Flexible cell management and interaction system
 
-## 系统要求
+## Core Features
 
-- Unity 2020.3 或更高版本
+### 1. Grid System
+- **Dynamic Grid Generation**: Support for hexagonal maps of any size
+- **Customizable Grid Parameters**: Adjustable hexagon size, spacing, and other parameters
+- **Cube Coordinate System**: Efficient hexagonal coordinate conversion and calculation
+
+### 2. Terrain System
+- **Multiple Terrain Types**: Built-in support for water, mountains, plains, and more
+- **Terrain Layering**: Support for terrain type combinations
+- **Extensibility**: Easy addition of new terrain types
+
+### 3. Interaction System
+- **Selection Highlighting**: Mouse hover and selection effects
+- **Event System**: Complete cell interaction events
+- **Collision Detection**: Precise hexagonal collision boundaries
+
+## Requirements
+
+- Unity 2020.3 or higher
 - .NET Framework 4.x
 
-## 安装步骤
+## Quick Start
 
-1. 将整个 HexGridSystem 文件夹复制到你的 Unity 项目的 Assets 目录下
-2. 确保所有脚本和预制体都被正确导入
+### 1. Installation
+1. Clone or download this repository
+2. Copy the entire HexGridSystem folder into your Unity project's Assets directory
 
-## 使用指南
+### 2. Basic Setup
+1. Create Scene
+   ```
+   Create a new scene in Unity
+   ```
 
-### 基础设置
+2. Create Grid Manager
+   ```
+   Create an empty GameObject named "HexGrid"
+   Add the HexGrid component to this object
+   ```
 
-1. 在场景中创建一个空游戏对象，命名为 "HexGrid"
-2. 将 `HexGrid.cs` 组件添加到该对象上
-3. 配置 HexGrid 组件的参数：
-   - Width: 设置网格的宽度
-   - Height: 设置网格的高度
-   - Cell Spacing: 设置六边形单元格之间的间距
-   - 将 GridCell 预制体拖拽到 Grid Cell Prefab 字段
+3. Configure Parameters
+   ```
+   Set grid dimensions (width, height)
+   Adjust cell spacing (cellSpacing)
+   Assign GridCell Prefab
+   ```
 
-### 地形系统使用
+### 3. Code Examples
 
+1. Creating Grid
 ```csharp
-// 获取网格单元
-GridCell cell = hexGrid.GetCellAtCoordinates(coordinates);
+// Get or create grid manager
+HexGrid hexGrid = FindObjectOfType<HexGrid>();
 
-// 设置地形类型
+// Access cell at specific coordinates
+HexCoordinates coords = HexCoordinates.FromOffsetCoordinates(x, y);
+GridCell cell = hexGrid.GetCellAtCoordinates(coords);
+```
+
+2. Terrain Operations
+```csharp
+// Set terrain
 cell.AddTerrain(TerrainType.Mountain);
 
-// 检查地形类型
+// Check terrain
 bool isMountain = cell.HasTerrain(TerrainType.Mountain);
 ```
 
-### 坐标系统
-
+3. Getting Adjacent Cells
 ```csharp
-// 创建坐标
-HexCoordinates coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
-
-// 获取相邻格子
-HexCoordinates neighbor = coordinates.GetNeighbor(HexDirection.NE);
+var neighbors = hexGrid.GetNeighbors(cell);
+foreach (var neighbor in neighbors) {
+    // Process neighboring cells
+}
 ```
 
-### 高亮系统
+## Advanced Features
 
-1. 将 `HexGridHighlight.cs` 添加到网格对象上
-2. 配置高亮颜色和选择颜色
-3. 使用示例：
-
-```csharp
-// 订阅格子选择事件
-hexGridHighlight.OnCellSelected += (sender, args) => {
-    GridCell selectedCell = args.Cell;
-    // 处理选择逻辑
-};
-```
-
-## 自定义扩展
-
-### 自定义地形类型
-
-在 `TerrainType.cs` 中添加新的地形类型：
-
+### 1. Custom Terrain Types
+Extend terrain types in `TerrainType.cs`:
 ```csharp
 public enum TerrainType
 {
@@ -87,41 +101,234 @@ public enum TerrainType
     Water = 1 << 1,
     Mountain = 1 << 2,
     Plane = 1 << 3,
-    // 添加新的地形类型
+    // Add new terrain types
     Forest = 1 << 4,
     Desert = 1 << 5
 }
 ```
 
-### 网格外观定制
-
-修改 `HexMetrics.cs` 中的参数来调整六边形的大小和形状：
-
+### 2. Grid Parameter Adjustment
+Modify grid parameters in `HexMetrics.cs`:
 ```csharp
 public static class HexMetrics
 {
-    // 修改这些值来调整六边形大小
     public const float outerRadius = 1f;
     public const float innerRadius = outerRadius * 0.866025404f;
 }
 ```
 
-## 调试与优化
+## Optimization Tips
 
-- 使用 Unity 编辑器中的 Scene 视图预览网格布局
-- 调整 Cell Spacing 参数优化视觉效果
-- 确保在大型地图中合理使用网格范围，避免性能问题
+1. **Performance Optimization**
+   - Consider object pooling for large maps
+   - Implement dynamic loading within view range
+   - Use mesh combining to reduce draw calls
 
-## 注意事项
+2. **Memory Management**
+   - Release unused grid resources promptly
+   - Use shared materials to reduce memory usage
 
-- 这是一个3D六边形网格系统，如需2D效果请相应修改代码
-- 确保所有必要的组件都已正确配置
-- 大型地图可能需要考虑性能优化，如对象池等技术
+## Important Notes
 
-## 技术支持
+- This is a 3D hexagonal grid system; code modifications needed for 2D
+- Consider performance optimization for large-scale maps
+- Ensure all necessary components and references are properly set up
 
-如有问题，请查看示例场景或提交 Issue。
+## Technical Support
 
-## 许可证
+For issues, please check the example scenes or submit an Issue.
 
-MIT许可证
+## License
+
+MIT License - See [LICENSE](LICENSE) file for details
+
+## Integration Guide
+
+### Interacting with HexGrid System
+
+There are several ways to integrate and interact with the HexGrid system in your own project:
+
+### 1. Context Class Pattern
+
+Create a context class to manage the interaction with HexGrid:
+
+```csharp
+public class HexGridContext
+{
+    private HexGrid hexGrid;
+    private Dictionary<HexCoordinates, GameEntity> entityMap;
+
+    public HexGridContext(HexGrid grid)
+    {
+        hexGrid = grid;
+        entityMap = new Dictionary<HexCoordinates, GameEntity>();
+    }
+
+    // Place game entities on the grid
+    public void PlaceEntity(GameEntity entity, HexCoordinates coordinates)
+    {
+        if (IsValidPosition(coordinates))
+        {
+            entityMap[coordinates] = entity;
+            GridCell cell = hexGrid.GetCellAtCoordinates(coordinates);
+            // Update cell state or visual feedback
+        }
+    }
+
+    // Check if a move is valid
+    public bool CanMoveTo(HexCoordinates from, HexCoordinates to)
+    {
+        GridCell fromCell = hexGrid.GetCellAtCoordinates(from);
+        GridCell toCell = hexGrid.GetCellAtCoordinates(to);
+        
+        return IsValidPosition(to) && !entityMap.ContainsKey(to) 
+               && !toCell.HasTerrain(TerrainType.Mountain);
+    }
+
+    // Get entities in range
+    public List<GameEntity> GetEntitiesInRange(HexCoordinates center, int range)
+    {
+        var cells = hexGrid.GetCellsInRange(center, range);
+        return cells.Where(c => entityMap.ContainsKey(c.Coordinates))
+                   .Select(c => entityMap[c.Coordinates])
+                   .ToList();
+    }
+}
+```
+
+### 2. Component-Based Integration
+
+Create a MonoBehaviour component to handle grid interactions:
+
+```csharp
+public class HexGridInteractionManager : MonoBehaviour
+{
+    public HexGrid hexGrid;
+    private GridCell selectedCell;
+    private List<GridCell> highlightedCells;
+
+    void Start()
+    {
+        highlightedCells = new List<GridCell>();
+        // Subscribe to grid events
+        hexGrid.OnCellSelected += HandleCellSelection;
+    }
+
+    // Handle cell selection
+    private void HandleCellSelection(GridCell cell)
+    {
+        selectedCell = cell;
+        // Clear previous highlights
+        ClearHighlights();
+        
+        // Highlight movement range
+        var cellsInRange = hexGrid.GetCellsInRange(cell.Coordinates, 3);
+        foreach (var rangeCell in cellsInRange)
+        {
+            if (IsCellValidForMovement(rangeCell))
+            {
+                HighlightCell(rangeCell);
+                highlightedCells.Add(rangeCell);
+            }
+        }
+    }
+
+    // Example of handling path finding
+    public List<GridCell> FindPath(GridCell start, GridCell end)
+    {
+        // Implement A* or other pathfinding algorithm
+        return hexGrid.FindPath(start.Coordinates, end.Coordinates);
+    }
+}
+```
+
+### 3. Event-Based System
+
+Subscribe to grid events for reactive gameplay:
+
+```csharp
+public class GameplayManager : MonoBehaviour
+{
+    private HexGrid hexGrid;
+    
+    void Start()
+    {
+        hexGrid = FindObjectOfType<HexGrid>();
+        
+        // Subscribe to grid events
+        hexGrid.OnCellSelected += OnCellSelected;
+        hexGrid.OnCellHighlighted += OnCellHighlighted;
+    }
+    
+    private void OnCellSelected(GridCell cell)
+    {
+        // Handle cell selection
+        if (IsUnitSelected && cell.IsValidDestination)
+        {
+            MoveUnitTo(cell.Coordinates);
+        }
+    }
+    
+    private void OnCellHighlighted(GridCell cell)
+    {
+        // Update UI or show cell information
+        UpdateCellInfoPanel(cell);
+    }
+}
+```
+
+### Best Practices
+
+1. **Separation of Concerns**
+   - Keep grid logic separate from game logic
+   - Use interfaces to define interaction contracts
+   - Implement observers for grid state changes
+
+2. **State Management**
+   - Cache frequently accessed data
+   - Use events to notify state changes
+   - Implement undo/redo system if needed
+
+3. **Performance Considerations**
+   - Batch grid updates
+   - Use object pooling for visual effects
+   - Cache pathfinding results
+
+4. **Example Integration Pattern**
+
+```csharp
+public interface IGridInteraction
+{
+    void OnCellSelected(GridCell cell);
+    void OnCellHighlighted(GridCell cell);
+    bool IsValidMove(HexCoordinates from, HexCoordinates to);
+}
+
+public class TurnBasedGameManager : MonoBehaviour, IGridInteraction
+{
+    private HexGridContext gridContext;
+    private GameState currentState;
+
+    void Start()
+    {
+        var hexGrid = FindObjectOfType<HexGrid>();
+        gridContext = new HexGridContext(hexGrid);
+        
+        // Initialize game state
+        currentState = new GameState(gridContext);
+    }
+
+    public void OnCellSelected(GridCell cell)
+    {
+        // Handle based on current game state
+        currentState.HandleCellSelection(cell);
+    }
+
+    public bool IsValidMove(HexCoordinates from, HexCoordinates to)
+    {
+        return gridContext.CanMoveTo(from, to);
+    }
+}
+```
+
+These integration patterns provide flexible ways to interact with the HexGrid system while maintaining clean code architecture and separation of concerns.
