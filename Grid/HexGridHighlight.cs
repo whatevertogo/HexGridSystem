@@ -1,29 +1,29 @@
 // using UnityEngine;
 // using System;
 
-// namespace Core.Grid
+// namespace Grid
 // {
 //     public class HexGridHighlight : MonoBehaviour
 //     {
 //         [Header("引用设置")]
 //         public Camera mainCamera;
 //         public HexGrid hexGrid;
-        
+
 //         [Header("高亮设置")]
 //         public Color hoverColor = new Color(1f, 1f, 0f, 0.3f);
 //         public Color selectedColor = new Color(0f, 1f, 0f, 0.3f);
-        
-//         private GridCell currentHoverCell;
-//         private GridCell selectedCell;
-        
+
+//         private HexCell currentHoverCell;
+//         private HexCell selectedCell;
+
 //         public event EventHandler<GridCellEventArgs> OnCellHovered;
 //         public event EventHandler<GridCellEventArgs> OnCellSelected;
 //         public event EventHandler<GridCellEventArgs> OnCellDeselected;
 
 //         public class GridCellEventArgs : EventArgs
 //         {
-//             public GridCell Cell { get; }
-//             public GridCellEventArgs(GridCell cell) => Cell = cell;
+//             public HexCell Cell { get; }
+//             public GridCellEventArgs(HexCell cell) => Cell = cell;
 //         }
 
 //         private void Start()
@@ -43,7 +43,7 @@
 //             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 //             if (Physics.Raycast(ray, out RaycastHit hit))
 //             {
-//                 if (hit.collider.TryGetComponent<GridCell>(out var hoveredCell) && hoveredCell != currentHoverCell)
+//                 if (hit.collider.TryGetComponent<HexCell>(out var hoveredCell) && hoveredCell != currentHoverCell)
 //                 {
 //                     ResetHoverVisual();
 //                     if (hoveredCell != selectedCell)
@@ -80,7 +80,7 @@
 //             }
 //         }
 
-//         private void SetCellHighlight(GridCell cell, Color color)
+//         private void SetCellHighlight(HexCell cell, Color color)
 //         {
 //             var renderer = cell.GetComponent<Renderer>();
 //             if (renderer != null)
@@ -107,7 +107,7 @@
 //             }
 //         }
 
-//         private void ResetCellMaterial(GridCell cell)
+//         private void ResetCellMaterial(HexCell cell)
 //         {
 //             var renderer = cell.GetComponent<Renderer>();
 //             if (renderer != null)
